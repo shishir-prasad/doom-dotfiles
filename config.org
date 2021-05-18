@@ -1,7 +1,29 @@
+#+TITLE: Config
+#+PRIORITIES: header-args :tangle config.el
+
+* User Details
+$DOOMDIR/config.el -*- lexical-binding: t; -*-
+Place your private configuration here! Remember, you do not need to run 'door
+sync' after modifying this file!
+Some functionality uses this to identify you, e.g. GPG configuration, email
+clients, file templates and snippets.
+
+#+begin_src elisp
+
 (setq user-full-name "Shishir Prasad"
       user-mail-address "shishir@ibrew-hub.com")
 
+#+end_src
+
+* Theme
+Set doom Theme
+#+begin_src elisp
 (setq doom-theme 'doom-one)
+#+end_src
+* Org
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+#+begin_src elisp
 
 (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
@@ -44,5 +66,14 @@
            "|"
            "DONE(d)"  ; Task successfully completed
            "KILL(k)")))) ; Task was cancelled, aborted or is no longer applicable
+#+end_src
+
+* Line Numbers
+This determines the style of line numbers in effect. If set to `nil', line
+numbers are disabled. For relative line numbers, set this to `relative'.
+
+#+begin_src elisp
 
 (setq display-line-numbers-type t)
+
+#+end_src
