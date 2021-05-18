@@ -46,3 +46,34 @@
            "KILL(k)")))) ; Task was cancelled, aborted or is no longer applicable
 
 (setq display-line-numbers-type t)
+
+(map! :leader
+ (:prefix-map("d" . "Dired")
+      :desc "Dired"
+      "d" #'dired
+      :leader
+      :desc "Dired jump to current"
+      "j" #'dired-jump
+      (:after dired
+       (:map dired-mode-map
+        :leader
+        :desc "Peep-dired image previews"
+        "p" #'peep-dired
+        :leader
+        :desc "Dired view file"
+        "v" #'dired-view-file))))
+(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
+  (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+
+;(setq doom-theme 'doom-dracula)
+;(setq doom-dracula-brighter-comments t)
+
+(set-charset-priority 'unicode)
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
