@@ -115,3 +115,9 @@ Set utf-8 as default encoding format
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 #+end_src
+* Escape sequence
+#+begin_src elisp
+(after! evil-escape
+  (setq evil-escape-key-sequence "tn"))
+
+#+end_src

@@ -77,3 +77,6 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
+(after! evil-escape
+  (setq evil-escape-key-sequence "tn"))
