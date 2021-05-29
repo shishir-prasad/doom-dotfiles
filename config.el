@@ -1,7 +1,7 @@
 (setq user-full-name "Shishir Prasad"
       user-mail-address "shishir@ibrew-hub.com")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-acario-dark)
 
 (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
@@ -45,7 +45,7 @@
            "DONE(d)"  ; Task successfully completed
            "KILL(k)")))) ; Task was cancelled, aborted or is no longer applicable
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 (map! :leader
  (:prefix-map("d" . "Dired")
@@ -80,3 +80,8 @@
 
 (after! evil-escape
   (setq evil-escape-key-sequence "tn"))
+
+(add-hook 'after-init-hook #'global-prettier-mode)
+
+(global-set-key [M-S-up]  'move-line-up)
+(global-set-key [M-S-down]  'move-line-down)
