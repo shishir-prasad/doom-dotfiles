@@ -19,9 +19,10 @@
   (setq org-directory "~/org/"
         org-agenda-files '("~/org/gtd/projects.org"
                            "~/org/gtd/meetings.org"
-                           "~/org/gtd/home.org"
-                           "~/org/gtd/work.org"
+                           "~/org/gtd/learning.org"
                            "~/org/gtd/ideas.org"
+                           "~/org/gtd/tickler.org"
+                           "~/org/gtd/tasks.org"
                            "~/org/gtd/inbox.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
@@ -29,7 +30,7 @@
         org-journal-dir "~/org/gtd/journal/"
         org-journal-enable-agenda-integration t
         org-journal-file-type 'monthly
-        org-journal-file-format "%B,%Y.org"
+        org-journal-file-format "(%B)%m,%Y.org"
         org-journal-carryover-items "TODO=\"TODO\"|TODO=\"NEXT\"|TODO=\"PROJ\"|TODO=\"STRT\"|TODO=\"WAIT\"|TODO=\"HOLD\""
         org-journal-date-format "%B %d, %Y (%A)"
 
@@ -43,7 +44,31 @@
            "WAIT(w)"  ; Something external is holding up this task
            "|"
            "DONE(d)"  ; Task successfully completed
-           "KILL(k)")))) ; Task was cancelled, aborted or is no longer applicable
+           "KILL(k)")))  ; Task was cancelled, aborted or is no longer applicable
+  (setq org-capture-templates '(("t" "Todo" entry
+                               (file+headline "gtd/tasks.org" "Tasks")
+                               "* TODO %i%? \nDEADLINE: %^t")
+                              ("T" "Tickler" entry
+                               (file+headline "gtd/tickler.org" "Tickler")
+                               "* TODO %i%? \nSCHEDULED: %^t")
+                              ("d" "Day-Planner" plain
+                               (file+olp+datetree "gtd/daily-planner.org")
+                               "Most Important Tasks
+- [ ]
+- [ ]
+- [ ]
+Secondary Tasks
+- [ ]
+- [ ]
+- [ ]
+Other Tasks
+- [ ] iBrew-Hub Website and content
+- [ ] Journal entry about today's work"
+                             :empty-lines-before 0 ))))
+
+(map! :leader
+      :desc "Org Capture"
+      "a" #'org-capture)
 
 (setq display-line-numbers-type 'relative)
 
@@ -82,6 +107,3 @@
   (setq evil-escape-key-sequence "tn"))
 
 (add-hook 'after-init-hook #'global-prettier-mode)
-
-(global-set-key [M-S-up]  'move-line-up)
-(global-set-key [M-S-down]  'move-line-down)

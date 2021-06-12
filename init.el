@@ -147,9 +147,19 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +journal +pretty)              ; organize your plain life in plain text
+       (org +journal              ; organize your plain life in plain text
+            ;;+pretty                     ; yessss my pretties! (nice unicode symbols)
+            ;;+dragndrop                  ; drag & drop files/images into org buffers
+            ;;+hugo                     ; use Emacs for hugo blogging
+            ;;+noter                      ; enhanced PDF notetaking
+            ;;+jupyter                    ; ipython/jupyter support for babel
+            ;;+pandoc                     ; export-with-pandoc support
+            ;;+gnuplot                    ; who doesn't like pretty pictures
+            +pomodoro                 ; be fruitful with the tomato technique
+            ;;+present                    ; using org-mode for presentations
+            ;;+roam)
        ;;php               ; perl's insecure younger brother
-       ;;plantuml          ; diagrams for confusing people more
+       plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        ;;python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
