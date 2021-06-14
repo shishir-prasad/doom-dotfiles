@@ -3,6 +3,48 @@
 
 (setq doom-theme 'doom-acario-dark)
 
+(map! :leader
+      :desc "Org Capture"
+      "A" #'org-capture)
+
+(setq display-line-numbers-type 'relative)
+
+(map! :leader
+ (:prefix-map("d" . "Dired")
+      :desc "Dired"
+      "d" #'dired
+      :leader
+      :desc "Dired jump to current"
+      "j" #'dired-jump
+      (:after dired
+       (:map dired-mode-map
+        :leader
+        :desc "Peep-dired image previews"
+        "p" #'peep-dired
+        :leader
+        :desc "Dired view file"
+        "v" #'dired-view-file))))
+(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
+  (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+
+;(setq doom-theme 'doom-dracula)
+;(setq doom-dracula-brighter-comments t)
+
+(set-charset-priority 'unicode)
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
+(after! evil-escape
+  (setq evil-escape-key-sequence "tn"))
+
+(add-hook 'after-init-hook #'global-prettier-mode)
+
 (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
   (concat
@@ -44,8 +86,11 @@
            "WAIT(w)"  ; Something external is holding up this task
            "|"
            "DONE(d)"  ; Task successfully completed
-           "KILL(k)")))  ; Task was cancelled, aborted or is no longer applicable
-  (setq org-capture-templates '(("t" "Todo" entry
+           "KILL(k)"))  ; Task was cancelled, aborted or is no longer applicable
+        org-todo-keyword-faces
+        '(("TODO" . "red") ("WAIT" . "magenta") ("PROJ" . "red") ("NEXT" . "red") ("DONE" . "green"))
+
+        org-capture-templates '(("t" "Todo" entry
                                (file+headline "gtd/tasks.org" "Tasks")
                                "* TODO %i%? \nDEADLINE: %^t")
                               ("T" "Tickler" entry
@@ -64,46 +109,23 @@ Secondary Tasks
 Other Tasks
 - [ ] iBrew-Hub Website and content
 - [ ] Journal entry about today's work"
-                             :empty-lines-before 0 ))))
+                             :empty-lines-before 0 ))
 
-(map! :leader
-      :desc "Org Capture"
-      "a" #'org-capture)
+        org-pomodoro-length 52
+        org-pomodoro-long-break-length 17
+        org-pomodoro-short-break-length 17)
 
-(setq display-line-numbers-type 'relative)
-
-(map! :leader
- (:prefix-map("d" . "Dired")
-      :desc "Dired"
-      "d" #'dired
-      :leader
-      :desc "Dired jump to current"
-      "j" #'dired-jump
-      (:after dired
-       (:map dired-mode-map
-        :leader
-        :desc "Peep-dired image previews"
-        "p" #'peep-dired
-        :leader
-        :desc "Dired view file"
-        "v" #'dired-view-file))))
-(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
-  (kbd "k") 'peep-dired-prev-file)
-(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
-
-
-;(setq doom-theme 'doom-dracula)
-;(setq doom-dracula-brighter-comments t)
-
-(set-charset-priority 'unicode)
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
-
-(after! evil-escape
-  (setq evil-escape-key-sequence "tn"))
-
-(add-hook 'after-init-hook #'global-prettier-mode)
+(set-face-attribute 'org-checkbox nil
+                    :bold 'normal
+                    :foreground "#e1341e"
+                    :background nil)
+;; * headline [7%] -> checkbox statistics face.
+(set-face-attribute 'org-checkbox-statistics-todo nil
+                    ;; :height 0.9
+                    :foreground "#e1341e"
+                    :bold t
+                    )
+(set-face-attribute 'org-checkbox-statistics-done nil
+                    :foreground "green"
+                    :strike-through t))
+(custom-set-faces '(org-checkbox ((t (:foreground nil :inherit org-todo)))))

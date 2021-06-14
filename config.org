@@ -1,5 +1,6 @@
 #+TITLE: Config
 #+PRIORITIES: header-args :tangle config.el
+#+STARTUP: fold
 
 * User Details
 $DOOMDIR/config.el -*- lexical-binding: t; -*-
@@ -23,7 +24,7 @@ Set doom Theme
 * Org
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!
-#+begin_src elisp
+#+begin_src emacs-lisp
 
 (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
@@ -66,8 +67,11 @@ change `org-directory'. It must be set before org loads!
            "WAIT(w)"  ; Something external is holding up this task
            "|"
            "DONE(d)"  ; Task successfully completed
-           "KILL(k)")))  ; Task was cancelled, aborted or is no longer applicable
-  (setq org-capture-templates '(("t" "Todo" entry
+           "KILL(k)"))  ; Task was cancelled, aborted or is no longer applicable
+        org-todo-keyword-faces
+        '(("TODO" . "red") ("WAIT" . "magenta") ("PROJ" . "red") ("NEXT" . "red") ("DONE" . "green"))
+
+        org-capture-templates '(("t" "Todo" entry
                                (file+headline "gtd/tasks.org" "Tasks")
                                "* TODO %i%? \nDEADLINE: %^t")
                               ("T" "Tickler" entry
@@ -86,14 +90,52 @@ Secondary Tasks
 Other Tasks
 - [ ] iBrew-Hub Website and content
 - [ ] Journal entry about today's work"
-                             :empty-lines-before 0 ))))
+                             :empty-lines-before 0 ))
+
+        org-pomodoro-length 52
+        org-pomodoro-long-break-length 17
+        org-pomodoro-short-break-length 17)
+
+(set-face-attribute 'org-checkbox nil
+                    :bold 'normal
+                    :foreground "#e1341e"
+                    :background nil)
+;; * headline [7%] -> checkbox statistics face.
+(set-face-attribute 'org-checkbox-statistics-todo nil
+                    ;; :height 0.9
+                    :foreground "#e1341e"
+                    :bold t
+                    )
+(set-face-attribute 'org-checkbox-statistics-done nil
+                    :foreground "green"
+                    :strike-through t))
+(custom-set-faces '(org-checkbox ((t (:foreground nil :inherit org-todo)))))
 #+end_src
+
+The set face attribute for org checkbox is written below
+Use this for future reference
+(set-face-attribute 'org-checkbox nil
+                    :bold 'normal
+                    :box '(:line-width 1 :color "dim gray" :style nil)
+                    :foreground "gray"
+                    :background nil)
+;; * headline [7%] -> checkbox statistics face.
+(set-face-attribute 'org-checkbox-statistics-todo nil
+                    ;; :height 0.9
+                    :box '(:color "cyan" :line-width 1)
+                    :background "#002B36" :foreground "green yellow"
+                    :bold t
+                    )
+(set-face-attribute 'org-checkbox-statistics-done nil
+                    :background "#222222" :foreground "black"
+                    :box '(:color "cyan" :line-width 1)
+                    :strike-through t)
 
 * Map Org-Capture
 #+begin_src elisp
 (map! :leader
       :desc "Org Capture"
-      "a" #'org-capture)
+      "A" #'org-capture)
 #+end_src
 * Line Numbers
 This determines the style of line numbers in effect. If set to `nil', line

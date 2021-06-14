@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Mongoose Schema
+# uuid:
+# key:mongoose
+# condition: t
+# --
+const mongoose = require('mongoose')
+
+const $1Schema = new mongoose.Schema ({
+$0:name
+})
+
+mongoose.model('$1',$1Schema)

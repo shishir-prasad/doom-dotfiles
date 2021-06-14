@@ -76,11 +76,11 @@
        ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
-       ;;vterm             ; the best terminal emulation in Emacs
+       vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;;(spell +flyspell) ; tasing you for misspelling mispelling
+       ;;spell               ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -100,14 +100,14 @@
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
+       taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+       tty               ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -147,17 +147,19 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +journal              ; organize your plain life in plain text
-            ;;+pretty                     ; yessss my pretties! (nice unicode symbols)
-            ;;+dragndrop                  ; drag & drop files/images into org buffers
-            ;;+hugo                     ; use Emacs for hugo blogging
-            ;;+noter                      ; enhanced PDF notetaking
-            ;;+jupyter                    ; ipython/jupyter support for babel
-            ;;+pandoc                     ; export-with-pandoc support
-            ;;+gnuplot                    ; who doesn't like pretty pictures
-            +pomodoro                 ; be fruitful with the tomato technique
-            ;;+present                    ; using org-mode for presentations
-            ;;+roam)
+       (org
+        +journal              ; organize your plain life in plain text
+        ;;+pretty                     ; yessss my pretties! (nice unicode symbols)
+        ;;+dragndrop                  ; drag & drop files/images into org buffers
+        ;;+hugo                     ; use Emacs for hugo blogging
+        ;;+noter                      ; enhanced PDF notetaking
+        ;;+jupyter                    ; ipython/jupyter support for babel
+        ;;+pandoc                     ; export-with-pandoc support
+        ;;+gnuplot                    ; who doesn't like pretty pictures
+        +pomodoro                 ; be fruitful with the tomato technique
+        ;;+present                    ; using org-mode for presentations
+        ;;+roam
+        )
        ;;php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
